@@ -97,8 +97,8 @@ group.add_argument('--class-map', default='', type=str, metavar='FILENAME',
 parser.add_argument('--tag', default='exp', type=str, metavar='TAG')
 # Model parameters
 group = parser.add_argument_group('Model parameters')
-group.add_argument('--model', default='gc_vit_tiny', type=str, metavar='MODEL',
-                    help='Name of model to train (default: "gc_vit_tiny"')
+group.add_argument('--model', default='faster_vit_any_res', type=str, metavar='MODEL',
+                    help='Name of model to train (default: "faster_vit_any_res"')
 group.add_argument('--pretrained', action='store_true', default=False,
                     help='Start with pretrained version of specified network (if avail)')
 group.add_argument('--initial-checkpoint', default='', type=str, metavar='PATH',

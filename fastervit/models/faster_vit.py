@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 # Copyright (c) 2023, NVIDIA CORPORATION.  All rights reserved.
 #
@@ -13,7 +12,7 @@ import torch.nn as nn
 from timm.models.registry import register_model
 from timm.models.layers import trunc_normal_, DropPath, LayerNorm2d
 from timm.models._builder import resolve_pretrained_cfg, _update_default_kwargs
-from fastervit.models.registry import register_pip_model
+from registry import register_pip_model
 from pathlib import Path
 import numpy as np
 
@@ -1001,6 +1000,8 @@ def faster_vit_0_224(pretrained=False, **kwargs):
                       **kwargs)
     model.pretrained_cfg = pretrained_cfg
     model.default_cfg = model.pretrained_cfg
+
+    model.head = torch.nn.Linear(model.head.in_features, 109)
     if pretrained:
         if not Path(model_path).is_file():
             url = model.default_cfg['url']
@@ -1284,6 +1285,8 @@ def faster_vit_4_21k_224(pretrained=False, **kwargs):
                       **kwargs)
     model.pretrained_cfg = pretrained_cfg
     model.default_cfg = model.pretrained_cfg
+    model.head = torch.nn.Linear(model.head.in_features, 2)
+
     if pretrained:
         if not Path(model_path).is_file():
             url = model.default_cfg['url']
@@ -1416,3 +1419,4 @@ def faster_vit_4_21k_768(pretrained=False, **kwargs):
             torch.hub.download_url_to_file(url=url, dst=model_path)
         model._load_state_dict(model_path)
     return model
+

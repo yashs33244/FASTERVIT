@@ -4,7 +4,7 @@ import numpy as np
 import torch
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
-from itertools import accumulate
+from torch._utils import _accumulate
 from timm.data import IterableImageDataset, ImageDataset, create_loader, resolve_data_config, Mixup, FastCollateMixup, AugMixDataset
 
 
@@ -416,7 +416,7 @@ def my_random_split(dataset, lengths, seed=0):
     g = torch.Generator()
     g.manual_seed(seed)
     indices = torch.randperm(sum(lengths), generator=g)
-    return [Subset_imagenet(dataset, indices[offset - length:offset]) for offset, length in zip(accumulate(lengths), lengths)]
+    return [Subset_imagenet(dataset, indices[offset - length:offset]) for offset, length in zip(_accumulate(lengths), lengths)]
 ################################################################################
 
 
